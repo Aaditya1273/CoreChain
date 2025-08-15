@@ -1,0 +1,30 @@
+{
+  "name": "core-node-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.0.0",
+    "@tanstack/react-query": "^5.28.4",
+    "next": "^14.2.31",
+    "react": "^18",
+    "react-dom": "^18",
+    "recharts": "^2.12.3",
+    "viem": "^2.8.12",
+    "wagmi": "^2.5.7",
+    "graphql": "^16.8.1",
+    "graphql-request": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "typescript": "^5"
+  }
+}

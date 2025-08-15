@@ -80,10 +80,12 @@ iot/
 └── 📁 simulators/
 ```
 
-## 📚 Next Steps
+## 🏛️ Architecture Documentation
 
-1. **Phase 1**: Create smart contracts directory
-2. **Phase 2**: Set up backend services
-3. **Phase 3**: Build frontend application
-4. **Phase 4**: Develop IoT integration
-5. **Phase 5**: Testing and deployment
+This project structure is based on the detailed architecture defined in the following documents:
+
+- [Overall System Architecture](../ARCHITECTURE.md)
+- [IoT Data Ingestion](./docs/architecture/iot-data-ingestion.md)
+- [AI Fraud Detection Module](./docs/architecture/ai-fraud-detection.md)
+- [Web3 Frontend Architecture](./docs/architecture/web3-frontend.md)
+- [Scalability Plan](./docs/architecture/scalability-plan.md)

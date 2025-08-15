@@ -1,0 +1,7 @@
+# AI Fraud Detection Service Dependencies
+
+tensorflow
+pandas
+scikit-learn
+fastapi
+uvicorn

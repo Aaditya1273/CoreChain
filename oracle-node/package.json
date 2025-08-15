@@ -1,0 +1,15 @@
+{
+  "name": "corechain-oracle-node",
+  "version": "1.0.0",
+  "description": "Off-chain oracle node for the CoreChain Climate Network",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
+    "mongodb": "^6.5.0",
+    "winston": "^3.13.0"
+  }
+}

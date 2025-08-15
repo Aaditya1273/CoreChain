@@ -1,0 +1,14 @@
+{
+  "name": "corechain-ipfs-uploader",
+  "version": "1.0.0",
+  "description": "Utility to upload verification documents to IPFS and mint a NodeIdentity SBT.",
+  "main": "upload.js",
+  "scripts": {
+    "upload": "node upload.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
+    "ipfs-http-client": "^60.0.1"
+  }
+}

@@ -17,6 +17,15 @@ CoreChain Climate Network is a decentralized physical infrastructure (DePIN) pro
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────┐
+│                   MIDDLEWARE LAYER                     │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
+│  │ API Gateway │ │ Auth Service│ │ Caching     │      │
+│  │ (GraphQL)   │ │ (JWT/Web3)  │ │ (Redis)     │      │
+│  └─────────────┘ └─────────────┘ └─────────────┘      │
+└─────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
 │                   BACKEND SERVICES                     │
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
 │  │ IoT Data    │ │ AI Fraud    │ │ Oracle      │      │
@@ -30,6 +39,15 @@ CoreChain Climate Network is a decentralized physical infrastructure (DePIN) pro
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
 │  │ Staking     │ │ Carbon      │ │ DAO         │      │
 │  │ Contracts   │ │ Credits     │ │ Governance  │      │
+│  └─────────────┘ └─────────────┘ └─────────────┘      │
+└─────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│                 DATA & STORAGE LAYER                   │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
+│  │ PostgreSQL  │ │ InfluxDB    │ │ IPFS/Arweave│      │
+│  │ (Metadata)  │ │ (Time-Series)│ │ (Files)     │      │
 │  └─────────────┘ └─────────────┘ └─────────────┘      │
 └─────────────────────────────────────────────────────────┘
                            │
@@ -60,10 +78,29 @@ CoreChain Climate Network is a decentralized physical infrastructure (DePIN) pro
 - **User Portal**: Staking and trading interface
 - **DAO Interface**: Governance participation
 
-### 4. **IoT Infrastructure**
+### 4. **Middleware**
+- **API Gateway**: Single entry point for all client requests (GraphQL)
+- **Authentication**: Secure access control using JWT and Web3 signatures
+- **Caching**: In-memory data store for performance (Redis)
+
+### 5. **Data & Storage**
+- **Relational Database**: For structured data like user profiles (PostgreSQL)
+- **Time-Series Database**: For high-frequency IoT sensor data (InfluxDB)
+- **Decentralized Storage**: For immutable data and files (IPFS/Arweave)
+
+### 6. **IoT Infrastructure**
 - **Environmental Sensors**: Climate, air quality monitoring
 - **Edge Computing**: Local data processing and validation
 - **Secure Communication**: Encrypted data transmission
+
+## 📚 Detailed Architecture
+
+For a more detailed breakdown of each component, please see the following documents:
+
+- [IoT Data Ingestion](./docs/architecture/iot-data-ingestion.md)
+- [AI Fraud Detection Module](./docs/architecture/ai-fraud-detection.md)
+- [Web3 Frontend Architecture](./docs/architecture/web3-frontend.md)
+- [Scalability Plan](./docs/architecture/scalability-plan.md)
 
 ## 🔄 Data Flow
 
