@@ -62,10 +62,10 @@ contract StakingPool is Ownable, ReentrancyGuard, Pausable {
      * @param _initialStakingRequirement The initial amount required for staking.
      * @param _identityContract The address of the NodeIdentity contract.
      */
-    constructor(IERC20 _stakingToken, uint256 _initialStakingRequirement, address _identityContract) Ownable(msg.sender) {
+    constructor(IERC20 _stakingToken, uint256 _initialStakingRequirement, address _identityContract) {
         require(_identityContract != address(0), "Identity contract cannot be zero");
         nodeIdentity = INodeIdentity(_identityContract);
-        require(_stakingToken != address(0), "Staking token cannot be zero address");
+        require(address(_stakingToken) != address(0), "Staking token cannot be zero address");
         require(_initialStakingRequirement > 0, "Initial stake must be positive");
         stakingToken = IERC20(_stakingToken);
         stakingRequirement = _initialStakingRequirement;
@@ -179,12 +179,5 @@ contract StakingPool is Ownable, ReentrancyGuard, Pausable {
         return nodes[_owner];
     }
 
-    /**
-     * @dev Checks if an address has a registered node.
-     * @param _owner The address to check.
-     * @return True if the node is registered, false otherwise.
-     */
-    function isNodeRegistered(address _owner) external view returns (bool) {
-        return nodes[_owner].owner != address(0);
-    }
+
 }

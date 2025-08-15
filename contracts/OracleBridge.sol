@@ -2,9 +2,12 @@
 pragma solidity 0.8.20;
 
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol";
-import "../carbon/CarbonCreditNFT.sol";
-import "../StakingPool.sol";
+import "@chainlink/contracts/src/v0.8/shared/interfaces/LinkTokenInterface.sol";
+import "./CarbonCreditNFT.sol";
+import "./StakingPool.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 
 /**
  * @title OracleBridge
@@ -12,7 +15,7 @@ import "../StakingPool.sol";
  * It uses a Chainlink oracle to receive energy production data, update node stats,
  * and trigger the minting of CarbonCreditNFTs when thresholds are met.
  */
-contract OracleBridge is ChainlinkClient {
+contract OracleBridge is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
 
     CarbonCreditNFT public carbonCreditNFT;
@@ -59,7 +62,8 @@ contract OracleBridge is ChainlinkClient {
     function requestEnergyData(bytes32 _specId, address _nodeId) public {
         require(stakingPool.isNodeRegistered(_nodeId), "Node is not registered");
         Chainlink.Request memory req = buildChainlinkRequest(_specId, address(this), this.fulfill.selector);
-        req.add("nodeId", _nodeId);
+        // Provide nodeId as a hex string per Chainlink add(string,string) helper
+        req.add("nodeId", Strings.toHexString(_nodeId));
         bytes32 requestId = sendChainlinkRequest(req, 1 * LINK_DIVISIBILITY); // Fee: 1 LINK
         requestToNode[requestId] = _nodeId;
     }

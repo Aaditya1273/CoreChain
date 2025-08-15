@@ -4,7 +4,18 @@ require("hardhat-gas-reporter");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.20",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.20",
+        settings: { evmVersion: "shanghai" },
+      },
+      {
+        version: "0.8.24",
+        settings: { evmVersion: "shanghai" },
+      },
+    ],
+  },
   networks: {
     coreTestnet: {
       url: process.env.CORE_TESTNET_RPC_URL || "https://rpc.test.btcs.network",

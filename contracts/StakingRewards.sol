@@ -35,7 +35,7 @@ contract StakingRewards is Ownable, ReentrancyGuard {
      * @param _rewardsToken The address of the token to be distributed as rewards.
      * @param _stakingPool The address of the main StakingPool contract.
      */
-    constructor(address _rewardsToken, address _stakingPool) Ownable(msg.sender) {
+    constructor(address _rewardsToken, address _stakingPool) {
         require(_rewardsToken != address(0), "Reward token cannot be zero address");
         require(_stakingPool != address(0), "Staking pool cannot be zero address");
         rewardsToken = IERC20(_rewardsToken);

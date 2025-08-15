@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 // This is a mock ERC20 contract for testing purposes.
 contract MockERC20 is ERC20, Ownable {
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) {}
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {}
 
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);

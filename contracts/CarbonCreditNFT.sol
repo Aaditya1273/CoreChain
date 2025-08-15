@@ -4,7 +4,7 @@ pragma solidity 0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+
 
 /**
  * @title CarbonCreditNFT
@@ -12,8 +12,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * Each NFT represents a verified amount of CO2 offset by a DePIN node.
  */
 contract CarbonCreditNFT is ERC721, ERC721Burnable, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;
+    uint256 private _tokenIdCounter;
 
     // Address of the oracle responsible for verifying data and providing signatures.
     address public verificationOracle;
@@ -36,7 +35,7 @@ contract CarbonCreditNFT is ERC721, ERC721Burnable, Ownable {
      * @dev Sets the initial values for the NFT contract.
      * @param _oracleAddress The address of the trusted verification oracle.
      */
-    constructor(address _oracleAddress) ERC721("CoreCarbonCredit", "CCC") Ownable(msg.sender) {
+    constructor(address _oracleAddress) ERC721("CoreCarbonCredit", "CCC") {
         require(_oracleAddress != address(0), "Oracle address cannot be zero");
         verificationOracle = _oracleAddress;
     }
@@ -52,7 +51,7 @@ contract CarbonCreditNFT is ERC721, ERC721Burnable, Ownable {
     function mint(address to, uint256 co2Offset, address nodeId, bytes memory signature) public returns (uint256) {
         require(msg.sender == verificationOracle, "Only the verification oracle can mint");
 
-        uint256 tokenId = _tokenIdCounter.current();
+        uint256 tokenId = _tokenIdCounter;
         _mint(to, tokenId);
 
         carbonCredits[tokenId] = CarbonCreditData({
@@ -64,7 +63,7 @@ contract CarbonCreditNFT is ERC721, ERC721Burnable, Ownable {
 
         emit CarbonCreditMinted(tokenId, to, co2Offset, nodeId);
 
-        _tokenIdCounter.increment();
+        _tokenIdCounter++;
         return tokenId;
     }
 
@@ -80,7 +79,6 @@ contract CarbonCreditNFT is ERC721, ERC721Burnable, Ownable {
 
     /**
      * @dev Returns the URI for a given token ID. This can be pointed to an off-chain metadata server.
-     * @param tokenId The ID of the token.
      * @return string The URI for the token's metadata.
      */
     function _baseURI() internal pure override returns (string memory) {

@@ -15,11 +15,11 @@
   "description": "",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@openzeppelin/contracts": "^5.0.1",
     "dotenv": "^16.4.5",
     "hardhat-gas-reporter": "^1.0.9"
   },
   "dependencies": {
-    "@chainlink/contracts": "^1.4.0"
+    "@chainlink/contracts": "^0.8.0",
+    "@openzeppelin/contracts": "^4.9.3"
   }
 }
