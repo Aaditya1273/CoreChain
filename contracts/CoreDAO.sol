@@ -63,7 +63,7 @@ contract CoreDAO is
     function state(uint256 proposalId)
         public
         view
-        override(Governor, IGovernor)
+        override(Governor, GovernorTimelockControl)
         returns (ProposalState)
     {
         return super.state(proposalId);
@@ -122,7 +122,7 @@ contract CoreDAO is
     )
         public
         payable
-        override(Governor, GovernorTimelockControl)
+        override(Governor, IGovernor)
         returns (uint256)
     {
         return super.execute(targets, values, calldatas, descriptionHash);

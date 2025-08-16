@@ -5,6 +5,7 @@ describe("Staking Contracts", function () {
     let StakingPool, stakingPool;
     let StakingRewards, stakingRewards;
     let MockERC20, coreToken, rewardsToken;
+    let MockNodeIdentity, mockNodeIdentity;
     let owner, addr1, addr2;
 
     beforeEach(async function () {
@@ -17,10 +18,17 @@ describe("Staking Contracts", function () {
         // Deploy Mock ERC20 for Rewards token
         rewardsToken = await MockERC20.deploy("Reward Token", "RWD");
 
+        // Deploy MockNodeIdentity contract
+        MockNodeIdentity = await ethers.getContractFactory("MockNodeIdentity");
+        mockNodeIdentity = await MockNodeIdentity.deploy();
+        
+        // Set balance for addr1 to allow node registration
+        await mockNodeIdentity.setBalance(addr1.address, 1);
+        
         // Deploy StakingPool
         const initialStakingRequirement = ethers.parseUnits("100", 18);
         StakingPool = await ethers.getContractFactory("StakingPool");
-        stakingPool = await StakingPool.deploy(await coreToken.getAddress(), initialStakingRequirement);
+        stakingPool = await StakingPool.deploy(await coreToken.getAddress(), initialStakingRequirement, await mockNodeIdentity.getAddress());
 
         // Deploy StakingRewards
         StakingRewards = await ethers.getContractFactory("StakingRewards");
@@ -50,10 +58,14 @@ describe("Staking Contracts", function () {
         });
 
         it("Should fail to register if stake is insufficient", async function () {
+            // Mint insufficient tokens for addr2
+            await coreToken.mint(addr2.address, ethers.parseUnits("50", 18));
+            await mockNodeIdentity.setBalance(addr2.address, 1);
+            
             const stakeAmount = ethers.parseUnits("50", 18);
-            await coreToken.connect(addr1).approve(await stakingPool.getAddress(), stakeAmount);
+            await coreToken.connect(addr2).approve(await stakingPool.getAddress(), stakeAmount);
             const geoHash = ethers.encodeBytes32String("u4pruydqqvj");
-            await expect(stakingPool.connect(addr1).registerNode(geoHash, 0, 0))
+            await expect(stakingPool.connect(addr2).registerNode(geoHash, 0, 0))
                 .to.be.revertedWith("Insufficient balance");
         });
 

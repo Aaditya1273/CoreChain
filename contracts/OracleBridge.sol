@@ -91,7 +91,7 @@ contract OracleBridge is ChainlinkClient, Ownable {
             bytes memory oracleSignature = abi.encodePacked(_requestId, totalOffset);
 
             // Mint the NFT to the node owner.
-            address nodeOwner = stakingPool.nodes(nodeId).owner;
+            (address nodeOwner,,,,,) = stakingPool.nodes(nodeId);
             carbonCreditNFT.mint(nodeOwner, totalOffset, nodeId, oracleSignature);
 
             // Deduct the minted amount from the total.
