@@ -1,6 +1,7 @@
-import '@/styles/globals.css';
+import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { getDefaultConfig, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import merge from 'lodash.merge';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -21,18 +22,37 @@ const coreChain = {
 
 const config = getDefaultConfig({
   appName: 'Core Node Dashboard',
-  projectId: 'YOUR_PROJECT_ID', // Replace with your WalletConnect Project ID
+  projectId: 'b8cf779b2a1a44595733359035a1a364', // Replace with your WalletConnect Project ID
   chains: [coreChain, mainnet, polygon, optimism, arbitrum, base],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
 const queryClient = new QueryClient();
 
+const myTheme = merge(darkTheme(), {
+  colors: {
+    modalBackground: '#f9f9f9',
+    modalText: '#1a1b1f',
+    modalTextSecondary: '#7a7a7a',
+    accentColor: '#007bff',
+    accentColorForeground: '#ffffff',
+  },
+  radii: {
+    modal: '16px',
+    actionButton: '12px',
+    menuButton: '12px',
+  },
+  shadows: {
+    dialog: '0 10px 30px rgba(0, 0, 0, 0.2)',
+    profileDetailsAction: '0 4px 12px rgba(0, 0, 0, 0.1)',
+  },
+});
+
 function MyApp({ Component, pageProps }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider theme={myTheme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>

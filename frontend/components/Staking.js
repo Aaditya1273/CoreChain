@@ -3,7 +3,7 @@ import { useWriteContract } from 'wagmi';
 // IMPORTANT: You must place the ABI for StakingPool.sol in this path
 import StakingPoolABI from '../lib/abi/StakingPool.json'; 
 
-const STAKING_POOL_ADDRESS = '0x...'; // Replace with your deployed StakingPool contract address
+const STAKING_POOL_ADDRESS = '0x0000000000000000000000000000000000000000'; // Replace with your deployed StakingPool contract address
 
 const Staking = () => {
   const { writeContract, isPending, error } = useWriteContract();

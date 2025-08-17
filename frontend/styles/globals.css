@@ -1,70 +1,235 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.main {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-@media (min-width: 768px) {
-  .main {
-    grid-template-columns: 1fr 1fr;
+@layer base {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  body {
+    @apply antialiased bg-dark-900 text-white;
   }
 }
 
-.card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+@layer components {
+  /* Professional Button Styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold py-3 px-8 rounded-xl shadow-glow-green hover:shadow-glow-green-lg transform hover:scale-105 transition-all duration-300 border border-primary-500/20;
+  }
+  
+  .btn-secondary {
+    @apply bg-dark-800 text-primary-400 font-semibold py-3 px-8 rounded-xl border border-primary-500/30 shadow-professional hover:shadow-professional-lg hover:bg-dark-700 hover:border-primary-400/50 transition-all duration-300;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent text-primary-400 font-semibold py-3 px-8 rounded-xl border-2 border-primary-500/50 hover:bg-primary-500/10 hover:border-primary-400 transition-all duration-300;
+  }
+  
+  /* Professional Card Styles */
+  .card-professional {
+    @apply bg-card-gradient backdrop-blur-xl rounded-2xl shadow-professional-lg border border-primary-500/20 hover:border-primary-400/30 transition-all duration-300;
+  }
+  
+  .card-glass {
+    @apply bg-dark-800/90 backdrop-blur-xl rounded-2xl shadow-professional border border-primary-500/20;
+  }
+  
+  .card-glow {
+    @apply bg-card-gradient backdrop-blur-xl rounded-2xl shadow-glow-green border border-primary-500/30 hover:shadow-glow-green-lg transition-all duration-300;
+  }
+  
+  /* Professional Text Styles */
+  .gradient-text {
+    background: linear-gradient(135deg, #22c55e, #10b981, #059669);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+  }
+  
+  /* Professional Background Styles */
+  .bg-professional {
+    @apply bg-professional-dark;
+  }
+  
+  .bg-hero {
+    @apply bg-hero-gradient;
+  }
+  
+  /* Navigation Styles */
+  .nav-professional {
+    @apply bg-dark-900/95 backdrop-blur-xl border-b border-primary-500/20;
+  }
+  
+  /* Input Styles */
+  .input-professional {
+    @apply bg-dark-800 border border-primary-500/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-300;
+  }
+  
+  /* Status Indicators */
+  .status-online {
+    @apply bg-primary-500 animate-pulse;
+  }
+  
+  .status-offline {
+    @apply bg-gray-500;
+  }
+  
+  /* Professional Layout */
+  .container-professional {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-professional {
+    @apply py-16 lg:py-24;
+  }
 }
 
-.card h2 {
-  margin-top: 0;
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(34, 197, 94, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  .border-glow {
+    box-shadow: inset 0 1px 0 rgba(34, 197, 94, 0.2), 0 0 20px rgba(34, 197, 94, 0.1);
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+/* Professional Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out;
+}
+
+/* Professional RainbowKit Styling */
+[data-rk] {
+  --rk-colors-accentColor: #22c55e;
+  --rk-colors-accentColorForeground: #ffffff;
+  --rk-colors-actionButtonBorder: rgba(34, 197, 94, 0.2);
+  --rk-colors-actionButtonBorderMobile: rgba(34, 197, 94, 0.2);
+  --rk-colors-actionButtonSecondaryBackground: #1e293b;
+  --rk-colors-closeButton: #64748b;
+  --rk-colors-closeButtonBackground: #334155;
+  --rk-colors-connectButtonBackground: #22c55e;
+  --rk-colors-connectButtonBackgroundError: #ef4444;
+  --rk-colors-connectButtonInnerBackground: #16a34a;
+  --rk-colors-connectButtonText: #ffffff;
+  --rk-colors-connectButtonTextError: #ffffff;
+  --rk-colors-error: #ef4444;
+  --rk-colors-generalBorder: rgba(34, 197, 94, 0.2);
+  --rk-colors-generalBorderDim: rgba(34, 197, 94, 0.1);
+  --rk-colors-menuItemBackground: #334155;
+  --rk-colors-modalBackdrop: rgba(0, 0, 0, 0.8);
+  --rk-colors-modalBackground: #1e293b;
+  --rk-colors-modalBorder: rgba(34, 197, 94, 0.2);
+  --rk-colors-modalText: #ffffff;
+  --rk-colors-modalTextDim: #94a3b8;
+  --rk-colors-modalTextSecondary: #64748b;
+  --rk-colors-profileAction: #334155;
+  --rk-colors-profileActionHover: #475569;
+  --rk-colors-profileForeground: #1e293b;
+  --rk-colors-selectedOptionBorder: #22c55e;
+  --rk-colors-standby: #f59e0b;
+  --rk-radii-actionButton: 12px;
+  --rk-radii-connectButton: 12px;
+  --rk-radii-menuButton: 12px;
+  --rk-radii-modal: 16px;
+  --rk-radii-modalMobile: 16px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
   border-radius: 4px;
 }
 
-button {
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.error {
-  color: #ff4d4f;
+/* Selection */
+::selection {
+  background: rgba(34, 197, 94, 0.3);
+  color: #ffffff;
 }

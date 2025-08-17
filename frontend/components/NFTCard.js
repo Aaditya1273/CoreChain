@@ -1,11 +1,13 @@
 import { useWriteContract } from 'wagmi';
+import { formatEther } from 'viem';
+
 // IMPORTANT: You will need a Marketplace contract and its ABI
 // import MarketplaceABI from '../lib/abi/Marketplace.json';
-
 // const MARKETPLACE_ADDRESS = '0x...'; // Replace with your deployed Marketplace contract address
 
 const NFTCard = ({ nft }) => {
   const { writeContract, isPending, error } = useWriteContract();
+  const { tokenId, price, seller, imageURI } = nft;
 
   const handleBuy = () => {
     // This function is a placeholder. A real implementation requires a marketplace contract.
@@ -15,27 +17,36 @@ const NFTCard = ({ nft }) => {
       address: MARKETPLACE_ADDRESS,
       abi: MarketplaceABI,
       functionName: 'buyItem',
-      args: [nft.nftAddress, nft.tokenId],
-      value: nft.price, // Price in CORE tokens (wei)
+      args: [nft.nftAddress, tokenId],
+      value: price,
     });
     */
   };
 
   return (
-    <div className="card nft-card">
-      <img src={nft.imageURI || '/placeholder-nft.svg'} alt={`Carbon Credit NFT #${nft.tokenId}`} />
-      <div className="nft-info">
-        <h3>Carbon Credit #{nft.tokenId}</h3>
-        <p>CO₂ Offset: {nft.co2Offset} kg</p>
-        <p>Node ID: {nft.nodeId}</p>
-        <div className="price-info">
-          <span>Price:</span>
-          <strong>{nft.priceInCore} CORE</strong>
+    <div className="card-glow group overflow-hidden transition-all duration-300 hover:scale-105">
+      <div className="relative">
+        <img 
+          src={imageURI || '/placeholder-nft.svg'} 
+          alt={`Carbon Credit NFT #${tokenId}`} 
+          className="w-full h-56 object-cover" 
+        />
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+      </div>
+      <div className="p-5">
+        <h3 className="text-xl font-bold text-white mb-2">Carbon Credit #{tokenId}</h3>
+        <p className="text-sm text-gray-400 truncate" title={seller}>Seller: {seller}</p>
+        
+        <div className="mt-4 flex justify-between items-center">
+          <div>
+            <p className="text-xs text-primary-400">Price</p>
+            <p className="text-lg font-bold gradient-text">{formatEther(price)} CORE</p>
+          </div>
+          <button onClick={handleBuy} disabled={isPending} className="btn-secondary text-sm py-2 px-4">
+            {isPending ? 'Purchasing...' : 'Buy Now'}
+          </button>
         </div>
-        <button onClick={handleBuy} disabled={isPending}>
-          {isPending ? 'Purchasing...' : 'Buy with CORE'}
-        </button>
-        {error && <p className="error">Error: {error.shortMessage}</p>}
+        {error && <p className="text-xs text-red-500 mt-2">Error: {error.shortMessage}</p>}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-# 🌍 CoreChain Climate Network
+# 🌍 CoreChain 
 
 <div align="center">
 

@@ -1,0 +1,40 @@
+{
+  "name": "corechain-backend",
+  "version": "1.0.0",
+  "description": "CoreChain Backend Services",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api-gateway\" \"npm run dev:iot-ingestion\" \"npm run dev:oracle-service\"",
+    "dev:api-gateway": "cd api-gateway && npm run dev",
+    "dev:iot-ingestion": "cd iot-ingestion && npm run dev",
+    "dev:oracle-service": "cd oracle-service && npm run dev",
+    "install:all": "npm install && cd api-gateway && npm install express cors @apollo/server @apollo/subgraph && npm install nodemon --save-dev && cd ../iot-ingestion && npm install express cors mqtt ws && npm install nodemon --save-dev && cd ../oracle-service && npm install express cors ethers node-cron && npm install nodemon --save-dev",
+    "build": "concurrently \"npm run build:api-gateway\" \"npm run build:iot-ingestion\" \"npm run build:oracle-service\"",
+    "build:api-gateway": "cd api-gateway && npm run build",
+    "build:iot-ingestion": "cd iot-ingestion && npm run build",
+    "build:oracle-service": "cd oracle-service && npm run build",
+    "start": "concurrently \"npm run start:api-gateway\" \"npm run start:iot-ingestion\" \"npm run start:oracle-service\"",
+    "start:api-gateway": "cd api-gateway && npm start",
+    "start:iot-ingestion": "cd iot-ingestion && npm start",
+    "start:oracle-service": "cd oracle-service && npm start",
+    "test": "concurrently \"npm run test:api-gateway\" \"npm run test:iot-ingestion\" \"npm run test:oracle-service\"",
+    "test:api-gateway": "cd api-gateway && npm test",
+    "test:iot-ingestion": "cd iot-ingestion && npm test",
+    "test:oracle-service": "cd oracle-service && npm test"
+  },
+  "keywords": [
+    "blockchain",
+    "depin",
+    "carbon-credits",
+    "iot",
+    "web3"
+  ],
+  "author": "CoreChain Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
